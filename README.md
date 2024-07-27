@@ -20,7 +20,7 @@ To deploy this project
 
 ## Environment Variables
 
-To run this project, you will need to add the following environment variables to your venv file
+To run this project, you will need to add the following environment variables to your venv 
 
 `face_recognition-1.3.0`
 
