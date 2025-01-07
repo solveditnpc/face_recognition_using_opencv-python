@@ -1,12 +1,11 @@
 # Face Recognition Attendance System
 
-A simple and efficient face recognition attendance system using OpenCV and Python. The system stores attendance records in CSV format, making it lightweight and easy to use.
+A simple and efficient face recognition attendance system using OpenCV and Python. The system stores attendance records in CSV format, making it lightweight and easy to use.unknown faces are stored in the `unknown_faces` folder.
 
 ## Features
 
 - Real-time face detection and recognition
 - Automated attendance marking
-- User-friendly GUI interface
 - CSV export functionality for attendance records
 - Multiple face recognition support
 - High accuracy using deep learning models
@@ -24,11 +23,7 @@ A simple and efficient face recognition attendance system using OpenCV and Pytho
    - Download Python from [python.org](https://www.python.org/downloads/)
    - During installation, make sure to check "Add Python to PATH"
 
-2. Install Visual Studio Build Tools (required for dlib):
-   - Download Visual Studio Build Tools from [visualstudio.microsoft.com](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
-   - Install "Desktop development with C++"
-
-3. Install all required packages:
+2. Install all required packages:
    ```bash
    pip install -r requirements.txt
    ```
@@ -50,8 +45,8 @@ A simple and efficient face recognition attendance system using OpenCV and Pytho
 
 1. Run the main application:
    ```bash
-   python main.py   # On Windows
-   python3 main.py  # On Linux
+   python attendance_opencv_2.0.py   # On Windows
+   python3 attendance_opencv_2.0.py  # On Linux
    ```
 
 2. The system will:
@@ -80,7 +75,7 @@ A simple and efficient face recognition attendance system using OpenCV and Pytho
 - Processor: Intel Core i5 or better
 - RAM: 8GB
 - Storage: 2GB free space
-- Camera: 1080p webcam
+- Camera: 1080p webcam(works on low resolution cameras but not as well)
 
 ## Performance Metrics
 
@@ -88,7 +83,6 @@ A simple and efficient face recognition attendance system using OpenCV and Pytho
 - Recognition Accuracy: >95%
 - False Positive Rate: <0.1%
 - Maximum Simultaneous Faces: 10
-- Database Response Time: <100ms
 
 ## Troubleshooting
 
@@ -104,13 +98,67 @@ A simple and efficient face recognition attendance system using OpenCV and Pytho
    - Update face data
    - Check camera resolution
 
-## Security Features
+## Troubleshooting Common Installation Errors
 
-- Encrypted data storage
-- Anti-spoofing detection
-- Access control levels
-- Audit logging
-- Backup and recovery options
+### 1. RuntimeError: Unsupported image type
+If you encounter: `RuntimeError: Unsupported image type, must be 8bit gray or RGB image`
+
+**Solution:**
+- Verify you're using 24-bit RGB images
+- Try different image files(sometimes a half face or a blurred image can cause this error)
+- Ensure you're using Python 3.7:
+  ```bash
+  python --version  # Should show Python 3.7.x
+  ```
+
+### 2. ModuleNotFoundError: No module named 'face_recognition'
+This usually occurs due to missing CMake and dlib dependencies.
+
+**Solution:**
+```bash
+pip install CMake
+pip install dlib
+```
+
+### 3. Unable to Install dlib
+If you can't install dlib through pip, follow these alternative steps:
+
+1. Download dlib:
+   - Visit [dlib GitHub repository](https://github.com/davisking/dlib.git) or find the dlib.whl for py-3.7.6 in this repository 
+   - Download the ZIP file
+   - Extract the downloaded file
+
+2. Install the correct wheel file:
+   - Check your Python version: `python --version`
+   - For Python 3.7: Use `dlib-19.22.99-cp37-cp37m-win_amd64.whl`
+   - Copy the wheel file to your project directory
+   - Install using:
+     ```bash
+     pip install dlib-19.22.99-cp37-cp37m-win_amd64.whl
+     ```
+   Note: Use the appropriate wheel file version matching your Python version
+
+### 4. Using Virtual Environment (Recommended)
+To avoid dependency conflicts, use a virtual environment:
+
+1. In your code editor:
+   - Click on the Python version in the bottom right
+   - Choose "Create a Virtual Environment"
+   - Select Python 3.7.6
+
+2. Activate the virtual environment:
+   ```bash
+   # Windows
+   .\venv\Scripts\activate
+   
+   # Linux/Mac
+   source venv/bin/activate
+   ```
+
+3. Install required packages in the virtual environment:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
 ## Future Enhancements
 
@@ -122,14 +170,10 @@ A simple and efficient face recognition attendance system using OpenCV and Pytho
    - API integration capabilities
 
 2. **Under Development**
-   - Mask detection
-   - Temperature sensing integration
    - Automated reporting system
-   - Blockchain-based attendance verification
-
 ## Contributing
 
-We welcome contributions! Please follow these steps:
+contributions are welcome! Please follow these steps:
 
 1. Fork the repository
 2. Create a feature branch
@@ -145,15 +189,13 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 For support and queries:
 - Create an issue in the repository
-- Contact: support@facerecognition.com
-- Documentation: [Wiki](https://github.com/yourusername/face-recognition-attendance/wiki)
+- Contact: neutralwritergithubdedicated@gmail.com
+- Documentation: [Wiki](https://github.com/solveditnpc/face_recognition_using_opencv-python.git)
 
 ## Acknowledgments
 
 - OpenCV community
 - dlib developers
-- Contributors and testers
-- Academic partners
 
 ## Version History
 
