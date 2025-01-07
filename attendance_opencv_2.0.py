@@ -40,8 +40,8 @@ os.makedirs(unknown_faces_folder, exist_ok=True)
 video_capture = cv2.VideoCapture(0)
 
 # Specify the folder location and csv file location
-database_folder = "paste your database path or the file name if it exists in this projects directory"
-csv_file = "paste your csv file path or the file name if it exists in this projects directory"
+database_folder = "database1"
+csv_file = "store1.csv"
 
 # Store the faceencodings and names of the people in the database
 known_face_encodings = []
