@@ -12,7 +12,6 @@ A simple and efficient face recognition attendance system using OpenCV and Pytho
 - Attendance history tracking
 - Easy user registration system
 - Unrecognized faces storage in `unknown_faces` folder
-- Anti-spoofing measures
 - Detailed logging system
 
 ## Installation Guide
@@ -25,28 +24,73 @@ A simple and efficient face recognition attendance system using OpenCV and Pytho
 
 2. Install all required packages:
    ```bash
-   pip install -r requirements.txt
+   pip install -r requirements_windows.txt
    ```
+
+Note: If you encounter any installation errors, refer to the Troubleshooting section below.
 
 ### Linux Installation
 
 1. Install system dependencies:
    ```bash
    sudo apt-get update
-   sudo apt-get install python3 python3-pip build-essential cmake libopencv-dev python3-opencv python3-numpy
+   sudo apt-get install -y make build-essential libssl-dev zlib1g-dev \
+   libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev \
+   libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl \
+   git libgtk2.0-dev pkg-config
    ```
 
-2. Install Python packages:
+2. Install pyenv:
    ```bash
-   pip3 install -r requirements.txt
+   curl https://pyenv.run | bash
    ```
+
+3. Add pyenv to your PATH (add these to your ~/.bashrc or ~/.zshrc):
+   ```bash
+   echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+   echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+   echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+   ```
+
+4. Reload your shell configuration:
+   ```bash
+   source ~/.bashrc
+   ```
+
+5. Install Python 3.7.6 using pyenv:
+   ```bash
+   pyenv install 3.7.6
+   cd folder_you_want_to_install_in
+   pyenv local 3.7.6
+   ```
+
+6. Create and activate a virtual environment:
+   ```bash
+   python -m venv test3.7.6
+   source test3.7.6/bin/activate
+   ```
+
+7. Install required packages:
+   ```bash
+   # Install CMake first
+   pip install cmake
+
+   # Install dlib with specific version
+   pip install dlib==19.24.0
+
+   # Install face_recognition and opencv
+   pip install face_recognition==1.3.0
+   pip install opencv-python
+   ```
+
+Note: If you encounter any installation errors, refer to the Troubleshooting section below.
 
 ## Usage
 
 1. Run the main application:
    ```bash
    python attendance_opencv_2.0.py   # On Windows
-   python3 attendance_opencv_2.0.py  # On Linux
+   python attendance_opencv_2.0.py  # On Linux
    ```
 
 2. The system will:
@@ -75,7 +119,7 @@ A simple and efficient face recognition attendance system using OpenCV and Pytho
 - Processor: Intel Core i5 or better
 - RAM: 8GB
 - Storage: 2GB free space
-- Camera: 1080p webcam(works on low resolution cameras but not as well)
+- Camera: 1080p webcam(works on low resolution cameras but not that well)
 
 ## Performance Metrics
 
@@ -160,6 +204,44 @@ To avoid dependency conflicts, use a virtual environment:
    pip install -r requirements.txt
    ```
 
+### 5. OpenCV GUI Error on Linux
+If you encounter: `cv2.error: OpenCV... The function is not implemented. Rebuild the library with Windows, GTK+ 2.x or Cocoa support`
+
+**Solution:**
+```bash
+sudo apt-get update
+sudo apt-get install libgtk2.0-dev pkg-config
+pip uninstall opencv-python
+pip install opencv-python
+```
+
+### 6. GTK Module Error on Linux
+If you see: `Gtk-Message: Failed to load module "canberra-gtk-module"`
+
+**Solution:**
+```bash
+sudo apt-get install -y libglib2.0-0 libsm6 libxext6 libxrender-dev libgl1-mesa-glx
+sudo apt-get install -y python3-opencv
+pip uninstall opencv-python opencv-python-headless
+pip install opencv-python --no-cache-dir
+```
+
+### 7. Face Recognition Type Error on Linux
+If you encounter: `TypeError: compute_face_descriptor(): incompatible function arguments`
+
+**Solution:**
+```bash
+# First, install system dependencies
+sudo apt-get install build-essential cmake
+sudo apt-get install libopenblas-dev liblapack-dev
+sudo apt-get install libx11-dev libgtk-3-dev
+
+# Then install compatible versions of dlib and face_recognition
+pip uninstall dlib face_recognition
+pip install dlib==19.24.0
+pip install face_recognition==1.3.0
+```
+
 ## Future Enhancements
 
 1. **Planned Features**
@@ -171,6 +253,7 @@ To avoid dependency conflicts, use a virtual environment:
 
 2. **Under Development**
    - Automated reporting system
+
 ## Contributing
 
 contributions are welcome! Please follow these steps:
