@@ -1,6 +1,6 @@
 # Face Recognition Attendance System
 
-A simple and efficient face recognition attendance system using OpenCV and Python. The system stores attendance records in CSV format, making it lightweight and easy to use.unknown faces are stored in the `unknown_faces` folder.
+A simple and efficient face recognition attendance system using OpenCV and Python for windows,linux and mac. The system stores attendance records in CSV format, making it lightweight and easy to use. unknown faces are stored in the `unknown_faces` folder.
 
 ## Features
 
@@ -14,11 +14,20 @@ A simple and efficient face recognition attendance system using OpenCV and Pytho
 - Unrecognized faces storage in `unknown_faces` folder
 - Detailed logging system
 
+## Configuration
+
+1. add the images of the people with their names as the image name in the `database1` folder.
+   example: `barack_obama.jpg`  // not neccessary to save the images with the name of the person as the image name
+
+2. add the image name and the name of the person you want to associate with that image in the `store1.csv` file.
+   // you can import a file with the format `name` `image_name` if you want to import your own file ,change the file name or the file path in the attendance scripts
+   example:`barack_obama.jpg`,`barack_obama`
+
 ## Installation Guide
 
 ### Windows Installation
 
-1. Install Python (3.8 or higher):
+1. Install Python (preferably 3.7.6 since requirements_windows.txt is for 3.7.6, to do a maual installation use python 3.11.0 for latest dlib libraries):
    - Download Python from [python.org](https://www.python.org/downloads/)
    - During installation, make sure to check "Add Python to PATH"
 
@@ -61,16 +70,21 @@ Note: If you encounter any installation errors, refer to the Troubleshooting sec
    ```bash
    pyenv install 3.7.6
    cd folder_you_want_to_install_in
-   pyenv local 3.7.6
+   pyenv local 3.11.0
    ```
 
 6. Create and activate a virtual environment:
    ```bash
-   python -m venv test3.7.6
-   source test3.7.6/bin/activate
+   python -m venv test3.11.0
+   source test3.11.0/bin/activate
    ```
 
 7. Install required packages:
+   ```bash
+   pip install -r requirements_linux.txt
+   ```
+   OR
+   
    ```bash
    # Install CMake first
    pip install cmake
@@ -85,16 +99,66 @@ Note: If you encounter any installation errors, refer to the Troubleshooting sec
 
 Note: If you encounter any installation errors, refer to the Troubleshooting section below.
 
+### Mac Installation Instructions
+
+1. Install Homebrew (if not already installed):
+   ```bash
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   ```
+
+2. Install pyenv using Homebrew:
+   ```bash
+   brew install pyenv
+   ```
+
+3. Add pyenv to your shell configuration. Add these lines to your ~/.zshrc or ~/.bash_profile:
+   ```bash
+   echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+   echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+   echo 'eval "$(pyenv init -)"' >> ~/.zshrc
+   ```
+
+4. Restart your terminal or reload the configuration:
+   ```bash
+   source ~/.zshrc
+   ```
+
+5. Install Python using pyenv:
+   ```bash
+   pyenv install 3.11.0
+   cd folder_you_want_to_install_in
+   pyenv local 3.11.0
+   ```
+
+6. Create and activate a virtual environment:
+   ```bash
+   python -m venv test3.11.0
+   source test3.11.0/bin/activate
+   ```
+
+7. Install dependencies:
+   ```bash
+   # Install Xcode Command Line Tools if not already installed
+   xcode-select --install
+   
+   # Install CMake using Homebrew
+   brew install cmake
+   
+   # Install Python dependencies
+   pip install -r requirements_mac.txt
+   ```
+
 ## Usage
 
 1. Run the main application:
    ```bash
    python attendance_opencv_2.0.py   # On Windows
-   python attendance_opencv_2.0.py  # On Linux
+   python linux_attendance_opencv_2.0.py  # On Linux
+   python linux_attendance_opencv_2.0.py  # On macOS
    ```
 
 2. The system will:
-   - Detect faces through your camera
+   - Detect faces through your camera/ you can choose one or more external cameras
    - Recognize registered individuals
    - Store attendance in CSV format
    - Save unrecognized faces in the `unknown_faces` folder for later review
@@ -128,20 +192,6 @@ Note: If you encounter any installation errors, refer to the Troubleshooting sec
 - False Positive Rate: <0.1%
 - Maximum Simultaneous Faces: 10
 
-## Troubleshooting
-
-### Common Issues and Solutions
-
-1. **Camera Not Detected**
-   - Check USB connections
-   - Verify camera permissions
-   - Update camera drivers
-
-2. **Recognition Errors**
-   - Ensure proper lighting
-   - Update face data
-   - Check camera resolution
-
 ## Troubleshooting Common Installation Errors
 
 ### 1. RuntimeError: Unsupported image type
@@ -152,7 +202,7 @@ If you encounter: `RuntimeError: Unsupported image type, must be 8bit gray or RG
 - Try different image files(sometimes a half face or a blurred image can cause this error)
 - Ensure you're using Python 3.7:
   ```bash
-  python --version  # Should show Python 3.7.x
+  python --version 
   ```
 
 ### 2. ModuleNotFoundError: No module named 'face_recognition'
